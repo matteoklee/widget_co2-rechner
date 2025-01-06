@@ -9,7 +9,7 @@
             <h3 class="text-2xl font-semibold">CO2-Emission</h3>
           </div>
           <p class="text-5xl font-bold text-red-700 mb-4">
-            {{ result.emission.toFixed(2) }}
+            <NumberTicker class="text-red-700" :decimal-places="2" :duration="2000" :value="result.emission" />
             <span class="text-2xl ml-2">kg</span>
           </p>
           <p class="text-lg">
@@ -24,11 +24,11 @@
             <h3 class="text-2xl font-semibold">Baum-Äquivalent</h3>
           </div>
           <p class="text-3xl font-bold text-green-700 mb-4">
-            {{ result.yearsToBind["years"] }}
-            <span class="text-2xl ml-2">Jahr(e),</span>
-            {{ result.yearsToBind["months"] }}
-            <span class="text-2xl ml-2">Monat(e),</span>
-            {{ result.yearsToBind["days"] }}
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :value="result.yearsToBind['years'] " />
+            <span class="text-2xl ml-2">Jahr(e), </span>
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="500" :value="result.yearsToBind['months'] " />
+            <span class="text-2xl ml-2">Monat(e), </span>
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="1000" :value="result.yearsToBind['days'] " />
             <span class="text-2xl ml-2">Tag(e)</span>
           </p>
           <p class="text-lg">
@@ -77,9 +77,10 @@ import CardContent from "@/components/ui/card/CardContent.vue";
 import Button from "@/components/ui/button/Button.vue";
 
 import {Leaf, Trees, Car, Train, Bus, Bike} from "lucide-vue-next";
+import NumberTicker from "@/components/ui/number-ticker/NumberTicker.vue";
 export default {
   name: "CalculationResult",
-  components: {Button, CardContent, Card, Leaf, Trees, Car, Train, Bus, Bike},
+  components: {NumberTicker, Button, CardContent, Card, Leaf, Trees, Car, Train, Bus, Bike},
   props: {
     advancedCalculation: Boolean,
     calculationData: Object,

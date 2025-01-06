@@ -96,12 +96,12 @@ export default {
         simpleResults: {},
       },
       calculationResult: {
-        emission: 0,
-        distance: 0,
+        emission: 44.23,
+        distance: 323,
         yearsToBind: {
-          years: 0,
-          months: 0,
-          days: 0
+          years: 1,
+          months: 3,
+          days: 21
         },
         neededTrees: 0
       },
