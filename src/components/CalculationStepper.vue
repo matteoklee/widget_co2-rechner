@@ -16,7 +16,10 @@
           <component :is="currentStep"
                      v-model:advancedCalculation="advancedCalculation"
                      :calculation-data="calculationData"
+                     :calculationResult="calculationResult"
+                     :dummySimpleResult="dummySimpleResult"
                      @update-data="updateData"
+                     @reset-data="resetData"
                      @next="nextStep"
                      @prev="prevStep" />
         </form>
@@ -60,6 +63,7 @@ import {ArrowLeft, ArrowRight} from "lucide-vue-next";
 import CalculationRoute from "@/components/CalculationRoute.vue";
 import CalculationTransportMedium from "@/components/CalculationTransportMedium.vue";
 import CalculationFuel from "@/components/CalculationFuel.vue";
+import CalculationResult from "@/components/CalculationResult.vue";
 
 export default {
   name: "CalculationStepper",
@@ -90,7 +94,83 @@ export default {
         co2Emission: 0,
         treeYears: 0,
         simpleResults: {},
-      }
+      },
+      calculationResult: {
+        emission: 0,
+        distance: 0,
+        yearsToBind: {
+          years: 0,
+          months: 0,
+          days: 0
+        },
+        neededTrees: 0
+      },
+      dummySimpleResult: [
+        {
+          "transportMediumDTO": {
+            "transportMediumName": "Pkw",
+            "transportMediumSize": "mittel",
+            "transportMediumFuel": "Otto",
+            "transportMediumFuelConsumption": null
+          },
+          "emission": 45.87713609,
+          "distance": 314507.0,
+          "yearsToBind": {
+            "years": 3,
+            "months": 8,
+            "days": 1
+          },
+          "neededTrees": 4
+        },
+        {
+          "transportMediumDTO": {
+            "transportMediumName": "Busreise",
+            "transportMediumSize": "default",
+            "transportMediumFuel": "Default",
+            "transportMediumFuelConsumption": null
+          },
+          "emission": 10.579386466,
+          "distance": 314507.0,
+          "yearsToBind": {
+            "years": 0,
+            "months": 10,
+            "days": 4
+          },
+          "neededTrees": 1
+        },
+        {
+          "transportMediumDTO": {
+            "transportMediumName": "Fahrrad",
+            "transportMediumSize": "default",
+            "transportMediumFuel": "Default",
+            "transportMediumFuelConsumption": null
+          },
+          "emission": 0.0,
+          "distance": 314507.0,
+          "yearsToBind": {
+            "years": 0,
+            "months": 0,
+            "days": 0
+          },
+          "neededTrees": 0
+        },
+        {
+          "transportMediumDTO": {
+            "transportMediumName": "Zug",
+            "transportMediumSize": "default",
+            "transportMediumFuel": "Diesel",
+            "transportMediumFuelConsumption": null
+          },
+          "emission": 19.094917102,
+          "distance": 529033.0,
+          "yearsToBind": {
+            "years": 1,
+            "months": 6,
+            "days": 9
+          },
+          "neededTrees": 2
+        }
+      ]
     }
   },
   computed: {
@@ -106,7 +186,7 @@ export default {
         case 3:
           return CalculationFuel;
         case 4:
-          return null;
+          return CalculationResult;
       }
     }
   },
@@ -123,6 +203,10 @@ export default {
     },
     updateData(newData) {
       Object.assign(this.calculationData, newData);
+    },
+    resetData() {
+      this.step = 1,
+      Object.assign(this.calculationData, {});
     }
   }
 }
