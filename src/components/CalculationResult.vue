@@ -2,7 +2,7 @@
   <div class="space-y-6 text-center">
     <h2 class="text-3xl font-bold mb-8">Ihre CO2-Bilanz</h2>
     <div class="grid gap-8 md:grid-cols-2">
-      <Card class="bg-gradient-to-br from-red-100 to-orange-100">
+      <Card class="bg-gradient-to-br from-red-100 to-orange-100 hover:scale-105 duration-300">
         <CardContent class="p-6">
           <div class="flex items-center justify-center mb-4">
             <Leaf class="h-12 w-12 text-red-600 mr-4" />
@@ -17,7 +17,7 @@
           </p>
         </CardContent>
       </Card>
-      <Card class="bg-gradient-to-br from-green-100 to-emerald-100">
+      <Card class="bg-gradient-to-br from-green-100 to-emerald-100 hover:scale-105 duration-300">
         <CardContent class="p-6">
           <div class="flex items-center justify-center mb-4">
             <Trees class="h-12 w-12 text-green-600 mr-4" />
@@ -44,7 +44,7 @@
         <Card
             v-for="(item, index) in dummy"
             :key="index"
-            class="bg-gray-100"
+            class="bg-gray-100 hover:scale-105 duration-300"
         >
           <CardContent class="p-4">
             <div class="flex items-center justify-center mb-2">
@@ -67,7 +67,13 @@
       </div>
     </div>
 
-    <Button @click="resetCalculation" class="mt-8">Neue Berechnung</Button>
+    <div>
+      <div className="mt-8 text-xs text-gray-500 flex items-center justify-center">
+        Entwickelt von Kleemann und Siemens Software GbR
+      </div>
+      <Button @click="resetCalculation" class="mt-4">Neue Berechnung</Button>
+    </div>
+
   </div>
 </template>
 
