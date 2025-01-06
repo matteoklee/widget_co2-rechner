@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import CalculationComponent from "@/components/CalculationComponent.vue";
+import CalculationStepper from "@/components/CalculationStepper.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: CalculationComponent
+            component: CalculationStepper
         },
         /*
         {
