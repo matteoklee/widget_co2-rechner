@@ -1,40 +1,61 @@
 <template>
-  <div class="space-y-6">
-    <div>
-      <Label class="mb-2 block">Kraftstoff</Label>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Button
-            v-for="fuel in availableFuels"
-            :key="fuel"
-            :variant="data.fuelType === fuel ? 'default' : 'outline'"
-            class="h-20 flex flex-col items-center justify-center"
-            @click="selectFuelType(fuel)"
-        >
-          <component
-              :is="icons[fuel]"
-              class="h-6 w-6 mb-2"
-          />
-          {{ capitalize(fuel) }}
-        </Button>
+  <div>
+    <form ref="form" @submit.prevent="validateInput" class="space-y-6">
+      <div>
+        <Label class="mb-2 block">Kraftstoff</Label>
+        <RadioGroup v-model="data.fuelType" class="grid grid-cols-1 sm:grid-cols-3 gap-4" required>
+          <label
+              v-for="fuel in availableFuels"
+              :key="fuel"
+              :for="`radio-${fuel}`"
+              class="flex flex-col items-center justify-center h-20 p-4 border rounded-lg cursor-pointer transition-all"
+              :class="{
+              'bg-primary text-white': data.fuelType === fuel,
+              'border-gray-300': data.fuelType !== fuel,
+            }"
+          >
+            <RadioGroupItem
+                :id="`radio-${fuel}`"
+                :value="fuel"
+                class="hidden"
+                required
+            />
+            <component
+                :is="icons[fuel]"
+                class="h-6 w-6 mb-2"
+            />
+            <span class="text-sm font-medium">{{ capitalize(fuel) }}</span>
+          </label>
+        </RadioGroup>
       </div>
-    </div>
-    <div v-if="data.transportMode === 'car'">
-      <Label class="mb-2 block">Fahrzeuggröße</Label>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Button
-            v-for="size in vehicleSizes"
-            :key="size"
-            :variant="data.vehicleSize === size ? 'default' : 'outline'"
-            class="h-20 flex flex-col items-center justify-center"
-            @click="selectVehicleSize(size)"
-        >
-          <Car
-              :class="sizeIconClass(size)"
-          />
-          {{ sizeTranslations[size] }}
-        </Button>
+
+      <div v-if="data.transportMode === 'car'">
+        <Label class="mb-2 block">Fahrzeuggröße</Label>
+        <RadioGroup v-model="data.vehicleSize" class="grid grid-cols-1 sm:grid-cols-3 gap-4" required>
+          <label
+              v-for="size in vehicleSizes"
+              :key="size"
+              :for="`radio-${size}`"
+              class="flex flex-col items-center justify-center h-20 p-4 border rounded-lg cursor-pointer transition-all"
+              :class="{
+              'bg-primary text-white': data.vehicleSize === size,
+              'border-gray-300': data.vehicleSize !== size,
+            }"
+          >
+            <RadioGroupItem
+                :id="`radio-${size}`"
+                :value="size"
+                class="hidden"
+                required
+            />
+            <Car
+                :class="sizeIconClass(size)"
+            />
+            <span class="text-sm font-medium">{{ sizeTranslations[size] }}</span>
+          </label>
+        </RadioGroup>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -42,15 +63,17 @@
 import Label from "@/components/ui/label/Label.vue";
 import Button from "@/components/ui/button/Button.vue";
 import {Fuel, Droplet, Zap, Car} from "lucide-vue-next";
+import RadioGroup from "@/components/ui/radio-group/RadioGroup.vue";
+import RadioGroupItem from "@/components/ui/radio-group/RadioGroupItem.vue";
 
 export default {
   name: "CalculationFuel",
-  components: {Button, Label, Fuel, Droplet, Zap, Car},
+  components: {RadioGroupItem, RadioGroup, Button, Label, Fuel, Droplet, Zap, Car},
   props: {
     advancedCalculation: Boolean,
     calculationData: Object,
   },
-  emits: ["update-data", "next"],
+  emits: ["update-data", "update-validity"],
   data() {
     return {
       data: { ...this.calculationData },
@@ -60,6 +83,7 @@ export default {
     data: {
       handler(newValue) {
         this.$emit("update-data", newValue);
+        this.validateInput();
       },
       deep: true,
     },
@@ -99,6 +123,12 @@ export default {
     },
   },
   methods: {
+    validateInput() {
+      const form = this.$refs.form;
+      const isValid = form.checkValidity();
+      console.error(form.checkValidity())
+      this.$emit("update-validity", isValid);
+    },
     selectFuelType(fuel) {
       this.data.fuelType = fuel;
     },

@@ -9,29 +9,27 @@
         <div class="mt-2 mb-4">
           <Progress v-model="progress" class="w-full mx-auto" />
         </div>
-
       </CardHeader>
       <CardContent>
-        <form @submit.prevent>
-          <component :is="currentStep"
-                     v-model:advancedCalculation="advancedCalculation"
-                     :calculation-data="calculationData"
-                     :calculationResult="calculationResult"
-                     :dummySimpleResult="dummySimpleResult"
-                     @update-data="updateData"
-                     @reset-data="resetData"
-                     @next="nextStep"
-                     @prev="prevStep" />
-        </form>
+        <component :is="currentStep" required
+           v-model:advancedCalculation="advancedCalculation"
+           :calculation-data="calculationData"
+           :calculationResult="calculationResult"
+           :dummySimpleResult="dummySimpleResult"
+           @update-data="updateData"
+           @update-validity="updateStepValidity(step -1, $event)"
+           @reset-data="resetData"
+           @next="nextStep"
+           @prev="prevStep" />
       </CardContent>
       <CardFooter class="w-full flex justify-between px-6 pb-6">
         <Button v-if="step > 1" type="button" @click="prevStep" variant="outline">
           <ArrowLeft class="mr-2 h-4 w-4" /> Zurück
         </Button>
-        <Button v-if="(step < maxStep) && !(step === maxStep-1)" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+        <Button v-if="(step < maxStep) && !(step === maxStep-1)" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
           Weiter <ArrowRight class="ml-2 h-4 w-4" />
         </Button>
-        <Button v-if="step === maxStep-1" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+        <Button v-if="step === maxStep-1" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
           Berechnen <ArrowRight class="ml-2 h-4 w-4" />
         </Button>
       </CardFooter>
@@ -83,6 +81,7 @@ export default {
       step: 1,
       maxStep: 4,
       advancedCalculation: true,
+      stepsValidity: [false, false, false, false],
 
       calculationData: {
         startLocation: "",
@@ -191,8 +190,17 @@ export default {
     }
   },
   methods: {
+    updateStepValidity(index, valid) {
+      console.log("UPDATE STEP VALIDITY1: " + this.stepsValidity[index])
+      this.stepsValidity[index] = valid;
+      console.log("UPDATE STEP VALIDITY2: " + this.stepsValidity[index])
+    },
+    isCurrentStepValid() {
+      console.log("CURRENT STEPS VALIDITY: " + this.stepsValidity)
+      return this.stepsValidity[this.step - 1];
+    },
     nextStep() {
-      if (this.step < this.maxStep) {
+      if (this.isCurrentStepValid() && this.step < this.maxStep) {
         this.step++;
       }
     },
