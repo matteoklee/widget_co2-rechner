@@ -7,7 +7,7 @@
     <Card class="max-w-4xl lg:mx-auto m-6">
       <CardHeader>
         <div class="mt-2 mb-4">
-          <Progress v-model="progress" class="w-full mx-auto" />
+          <Progress v-model="progress" class="w-full mx-auto"/>
         </div>
       </CardHeader>
       <CardContent>
@@ -24,7 +24,7 @@
       </CardContent>
       <CardFooter class="w-full flex flex-col px-6 pb-6">
         <div class="w-full">
-          <Alert variant="destructive" class="px-4 py-2.5 mb-3" v-if="isCurrentStepValid">
+          <Alert variant="" class="px-4 py-2.5 mb-3" v-if="!isCurrentStepValid() && !(step === maxStep)"> <!-- variant="destructive" -->
             <AlertCircle class="w-4 h-4" />
             <AlertTitle>Unvollständig</AlertTitle>
             <AlertDescription>
@@ -231,7 +231,7 @@ export default {
     resetData() {
       this.step = 1,
       Object.assign(this.calculationData, {});
-    }
+    },
   }
 }
 </script>
