@@ -1,7 +1,8 @@
 import { createApp } from "vue";
 import CalculationStepper from "@/components/CalculationStepper.vue";
+import "@/assets/index.css";
 
-export default function createWidget(selector, props = {}) {
+export default function createWidget(selector) {
     const container = document.querySelector(selector);
 
     if (!container) {
@@ -9,6 +10,6 @@ export default function createWidget(selector, props = {}) {
         return;
     }
 
-    const app = createApp(CalculationStepper, props);
+    const app = createApp(CalculationStepper);
     app.mount(container);
 }

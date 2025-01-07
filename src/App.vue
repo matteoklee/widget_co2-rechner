@@ -5,9 +5,10 @@
   <div>
     <p>Widget successful initialized.</p>
   </div>
-  <div>
+  <div class="">
     <router-view></router-view>
   </div>
+
 </template>
 
 <style scoped>
