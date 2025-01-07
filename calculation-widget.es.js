@@ -8311,13 +8311,13 @@ function Ru(e, t, n, r, o, a) {
   ], 64);
 }
 const $u = /* @__PURE__ */ pt(Tu, [["render", Ru]]);
-function Lu(e, t = {}) {
-  const n = document.querySelector(e);
-  if (!n) {
+function Lu(e) {
+  const t = document.querySelector(e);
+  if (!t) {
     console.error(`Element mit dem Selector "${e}" nicht gefunden.`);
     return;
   }
-  io($u, t).mount(n);
+  io($u).mount(t);
 }
 export {
   Lu as default
