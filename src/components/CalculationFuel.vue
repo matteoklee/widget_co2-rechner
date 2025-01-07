@@ -3,7 +3,7 @@
     <form ref="form" @submit.prevent="validateInput" class="space-y-6">
       <div>
         <Label class="mb-2 block">Kraftstoff</Label>
-        <RadioGroup v-model="data.fuelType" class="grid grid-cols-1 sm:grid-cols-3 gap-4" required>
+        <RadioGroup v-model="data.fuelType" class="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-required="true">
           <label
               v-for="fuel in availableFuels"
               :key="fuel"
@@ -31,7 +31,7 @@
 
       <div v-if="data.transportMode === 'car'">
         <Label class="mb-2 block">Fahrzeuggröße</Label>
-        <RadioGroup v-model="data.vehicleSize" class="grid grid-cols-1 sm:grid-cols-3 gap-4" required>
+        <RadioGroup v-model="data.vehicleSize" class="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-required="true">
           <label
               v-for="size in vehicleSizes"
               :key="size"

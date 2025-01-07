@@ -22,16 +22,27 @@
            @next="nextStep"
            @prev="prevStep" />
       </CardContent>
-      <CardFooter class="w-full flex justify-between px-6 pb-6">
-        <Button v-if="step > 1" type="button" @click="prevStep" variant="outline">
-          <ArrowLeft class="mr-2 h-4 w-4" /> Zurück
-        </Button>
-        <Button v-if="(step < maxStep) && !(step === maxStep-1)" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
-          Weiter <ArrowRight class="ml-2 h-4 w-4" />
-        </Button>
-        <Button v-if="step === maxStep-1" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
-          Berechnen <ArrowRight class="ml-2 h-4 w-4" />
-        </Button>
+      <CardFooter class="w-full flex flex-col px-6 pb-6">
+        <div class="w-full">
+          <Alert variant="destructive" class="px-4 py-2.5 mb-3" v-if="isCurrentStepValid">
+            <AlertCircle class="w-4 h-4" />
+            <AlertTitle>Unvollständig</AlertTitle>
+            <AlertDescription>
+              Bitte überprüfe deine Eingabedaten vor dem nächsten Schritt.
+            </AlertDescription>
+          </Alert>
+        </div>
+        <div class="w-full flex justify-between">
+          <Button v-if="step > 1" type="button" @click="prevStep" variant="outline">
+            <ArrowLeft class="mr-2 h-4 w-4" /> Zurück
+          </Button>
+          <Button v-if="(step < maxStep) && !(step === maxStep-1)" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+            Weiter <ArrowRight class="ml-2 h-4 w-4" />
+          </Button>
+          <Button v-if="step === maxStep-1" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+            Berechnen <ArrowRight class="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   </div>
@@ -57,17 +68,24 @@ import Label from "@/components/ui/label/Label.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Progress from "@/components/ui/progress/Progress.vue";
 import Switch from "@/components/ui/switch/Switch.vue";
-import {ArrowLeft, ArrowRight} from "lucide-vue-next";
+import {ArrowLeft, ArrowRight, AlertCircle} from "lucide-vue-next";
 import CalculationRoute from "@/components/CalculationRoute.vue";
 import CalculationTransportMedium from "@/components/CalculationTransportMedium.vue";
 import CalculationFuel from "@/components/CalculationFuel.vue";
 import CalculationResult from "@/components/CalculationResult.vue";
+import Alert from "@/components/ui/alert/Alert.vue";
+import AlertTitle from "@/components/ui/alert/AlertTitle.vue";
+import AlertDescription from "@/components/ui/alert/AlertDescription.vue";
 
 export default {
   name: "CalculationStepper",
   components: {
+    AlertDescription,
+    AlertTitle,
+    Alert,
     ArrowLeft,
     ArrowRight,
+    AlertCircle,
     Switch,
     Progress,
     Input,
@@ -191,9 +209,7 @@ export default {
   },
   methods: {
     updateStepValidity(index, valid) {
-      console.log("UPDATE STEP VALIDITY1: " + this.stepsValidity[index])
       this.stepsValidity[index] = valid;
-      console.log("UPDATE STEP VALIDITY2: " + this.stepsValidity[index])
     },
     isCurrentStepValid() {
       console.log("CURRENT STEPS VALIDITY: " + this.stepsValidity)
