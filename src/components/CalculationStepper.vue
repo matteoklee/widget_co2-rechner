@@ -31,7 +31,7 @@
               Bitte überprüfe deine Eingabedaten vor dem nächsten Schritt.
             </AlertDescription>
           </Alert>
-          <Alert variant="" class="px-4 py-2.5 mb-3" v-if="calculationStore.error !== null"> <!-- variant="destructive" -->
+          <Alert variant="" class="px-4 py-2.5 mb-3" v-if="calculationStore && calculationStore.error !== undefined"> <!-- variant="destructive" -->
             <AlertCircle class="w-4 h-4" />
             <AlertTitle>Fehler</AlertTitle>
             <AlertDescription>
