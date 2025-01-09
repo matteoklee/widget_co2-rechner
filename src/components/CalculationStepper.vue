@@ -76,6 +76,7 @@ import CalculationResult from "@/components/CalculationResult.vue";
 import Alert from "@/components/ui/alert/Alert.vue";
 import AlertTitle from "@/components/ui/alert/AlertTitle.vue";
 import AlertDescription from "@/components/ui/alert/AlertDescription.vue";
+import {useCalculationStore} from "@/stores/calculationStore.js";
 
 export default {
   name: "CalculationStepper",
@@ -94,6 +95,12 @@ export default {
     CardFooter,
     SelectItem,
     SelectContent, SelectTrigger, Select, CardContent, CardDescription, CardTitle, CardHeader, Card},
+  setup() {
+    const calculationStore = useCalculationStore();
+    return {
+      calculationStore
+    }
+  },
   data() {
     return {
       step: 1,
@@ -107,11 +114,9 @@ export default {
         transportMode: "",
         fuelType: "",
         vehicleSize: "",
-        distance: 0,
-        co2Emission: 0,
-        treeYears: 0,
-        simpleResults: {},
       },
+      calculationResult: null,
+      /*
       calculationResult: {
         emission: 44.23,
         distance: 323,
@@ -122,6 +127,7 @@ export default {
         },
         neededTrees: 0
       },
+      */
       dummySimpleResult: [
         {
           "transportMediumDTO": {
@@ -215,10 +221,19 @@ export default {
       console.log("CURRENT STEPS VALIDITY: " + this.stepsValidity)
       return this.stepsValidity[this.step - 1];
     },
+    areAllStepsValid() {
+      return this.stepsValidity.every(step => step === true);
+    },
     nextStep() {
+      if(this.isLastStep()) {
+        this.calculate();
+      }
       if (this.isCurrentStepValid() && this.step < this.maxStep) {
         this.step++;
       }
+    },
+    isLastStep() {
+      return this.step === (this.maxStep - 1);
     },
     prevStep() {
       if (this.step > 1) {
@@ -232,6 +247,14 @@ export default {
       this.step = 1,
       Object.assign(this.calculationData, {});
     },
+    async calculate() {
+      if(!this.areAllStepsValid()) {
+        return;
+      }
+      this.calculationStore.setCalculationData(this.calculationData);
+      await this.calculationStore.calculate();
+      this.calculationResult = this.calculationStore.getCalculationResult();
+    }
   }
 }
 </script>

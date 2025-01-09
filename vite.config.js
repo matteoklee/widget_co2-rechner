@@ -1,20 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {fileURLToPath} from "url";
-import postcss from "rollup-plugin-postcss";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/widget_co2-rechner/', // GitHub Repository Name
   plugins: [
     vue(),
-    postcss({
-      plugins: [
-        require("tailwindcss"),
-        require("autoprefixer"),
-      ],
-      inject: true,
-    }),],
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -23,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8085',
+        target: 'https://xrlab.hs-harz.de/co2back',
         changeOrigin: true,
         secure: false,
         ws: true
