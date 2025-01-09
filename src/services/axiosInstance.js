@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? 'https://xrlab.hs-harz.de/co2back/api'
+    : '/api';
+
 const axiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: BASE_URL,
     timeout: 5000
 });
 
