@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hidden">
     <p>CalculationComponent</p>
   </div>
 
@@ -53,7 +53,7 @@
       </CardFooter>
     </Card>
   </div>
-  <div class="mt-6">
+  <div class="mt-6 hidden">
     {{this.stepsValidity}}<br>
     {{this.advancedCalculation}}<br>
     {{this.calculationData}}
