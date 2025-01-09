@@ -3774,7 +3774,7 @@ function $i(e) {
     t.reduce((n, r) => qn(n, r, ""), {})
   );
 }
-const ji = $i(), [rn, fp] = he("ConfigProvider");
+const ji = $i(), [rn, pp] = he("ConfigProvider");
 let zi = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", Ui = (e = 21) => {
   let t = "", n = e;
   for (; n--; )
@@ -4633,7 +4633,7 @@ const Rl = {
   hideWhenDetached: !1,
   updatePositionStrategy: "optimized",
   prioritizePosition: !1
-}, [pp, Ol] = he("PopperContent"), Tl = /* @__PURE__ */ V({
+}, [mp, Ol] = he("PopperContent"), Tl = /* @__PURE__ */ V({
   inheritAttrs: !1,
   __name: "PopperContent",
   props: /* @__PURE__ */ Gs({
@@ -9948,17 +9948,17 @@ ne.formToJSON = (e) => Es(w.isHTMLForm(e) ? new FormData(e) : e);
 ne.getAdapter = Bs.getAdapter;
 ne.HttpStatusCode = Kn;
 ne.default = ne;
-const Ns = ne.create({
-  baseURL: "/api",
+const ep = "https://xrlab.hs-harz.de/co2back/api", Ns = ne.create({
+  baseURL: ep,
   timeout: 5e3
-}), ep = async (e, t, n) => {
+}), tp = async (e, t, n) => {
   const r = "emission", o = {
     startLocation: e,
     endLocation: t,
     transportMediumDTO: n
   };
   return (await Ns.post(r, o)).data;
-}, tp = async (e, t, n, r, o) => {
+}, np = async (e, t, n, r, o) => {
   const s = {
     startLocation: e,
     endLocation: t,
@@ -9967,7 +9967,7 @@ const Ns = ne.create({
     groupEmissionDTO: o
   };
   return (await Ns.post("groupEmission", s)).data;
-}, np = /* @__PURE__ */ Cd("calculationStore", {
+}, rp = /* @__PURE__ */ Cd("calculationStore", {
   state: () => ({
     calculationData: {
       startLocation: "",
@@ -9999,7 +9999,7 @@ const Ns = ne.create({
           transportMediumName: this.calculationData.transportMode,
           transportMediumSize: this.calculationData.vehicleSize,
           transportMediumFuel: this.calculationData.fuelType
-        }, t = await ep(
+        }, t = await tp(
           this.calculationData.startLocation,
           this.calculationData.endLocation,
           e
@@ -10021,7 +10021,7 @@ const Ns = ne.create({
             groupEmissionNickName: e,
             groupEmissionPassPhrase: t,
             groupEmissionSize: n
-          }, s = await tp(
+          }, s = await np(
             this.calculationData.startLocation,
             this.calculationData.endLocation,
             this.calculationResult.distance,
@@ -10049,7 +10049,7 @@ const Ns = ne.create({
       this.error = null;
     }
   }
-}), rp = {
+}), op = {
   name: "CalculationStepper",
   components: {
     AlertDescription: pd,
@@ -10076,7 +10076,7 @@ const Ns = ne.create({
   },
   setup() {
     return {
-      calculationStore: np()
+      calculationStore: rp()
     };
   },
   data() {
@@ -10250,19 +10250,19 @@ const Ns = ne.create({
   mounted() {
     this.initializeStepsValidity();
   }
-}, op = { class: "w-full bg-white" }, sp = { class: "mt-2 mb-4" }, ap = { class: "w-full" }, ip = { class: "w-full flex justify-between" }, lp = { class: "mt-6 hidden" };
-function up(e, t, n, r, o, s) {
+}, sp = { class: "w-full bg-white" }, ap = { class: "mt-2 mb-4" }, ip = { class: "w-full" }, lp = { class: "w-full flex justify-between" }, up = { class: "mt-6 hidden" };
+function cp(e, t, n, r, o, s) {
   const a = W("Progress"), i = W("CardHeader"), d = W("CardContent"), c = W("AlertCircle"), l = W("AlertTitle"), u = W("AlertDescription"), f = W("Alert"), p = W("ArrowLeft"), m = W("Button"), g = W("ArrowRight"), h = W("CardFooter"), v = W("Card");
   return A(), $(Re, null, [
     t[11] || (t[11] = L("div", { class: "hidden" }, [
       L("p", null, "CalculationComponent")
     ], -1)),
-    L("div", op, [
+    L("div", sp, [
       O(v, { class: "max-w-4xl lg:mx-auto m-6" }, {
         default: _(() => [
           O(i, null, {
             default: _(() => [
-              L("div", sp, [
+              L("div", ap, [
                 O(a, {
                   modelValue: s.progress,
                   "onUpdate:modelValue": t[0] || (t[0] = (x) => s.progress = x),
@@ -10292,7 +10292,7 @@ function up(e, t, n, r, o, s) {
           }),
           O(h, { class: "w-full flex flex-col px-6 pb-6" }, {
             default: _(() => [
-              L("div", ap, [
+              L("div", ip, [
                 !s.isCurrentStepValid() && o.step !== o.maxStep ? (A(), N(f, {
                   key: 0,
                   variant: "",
@@ -10315,7 +10315,7 @@ function up(e, t, n, r, o, s) {
                   ]),
                   _: 1
                 })) : se("", !0),
-                r.calculationStore && r.calculationStore.error !== void 0 ? (A(), N(f, {
+                r.calculationStore && r.calculationStore.error !== void 0 && r.calculationStore.error !== null ? (A(), N(f, {
                   key: 1,
                   variant: "",
                   class: "px-4 py-2.5 mb-3"
@@ -10338,7 +10338,7 @@ function up(e, t, n, r, o, s) {
                   _: 1
                 })) : se("", !0)
               ]),
-              L("div", ip, [
+              L("div", lp, [
                 o.step > 1 ? (A(), N(m, {
                   key: 0,
                   type: "button",
@@ -10385,7 +10385,7 @@ function up(e, t, n, r, o, s) {
         _: 1
       })
     ]),
-    L("div", lp, [
+    L("div", up, [
       Q(pe(this.stepsValidity), 1),
       t[9] || (t[9] = L("br", null, null, -1)),
       Q(" " + pe(this.advancedCalculation), 1),
@@ -10394,16 +10394,16 @@ function up(e, t, n, r, o, s) {
     ])
   ], 64);
 }
-const cp = /* @__PURE__ */ Bt(rp, [["render", up]]);
-function mp(e) {
+const dp = /* @__PURE__ */ Bt(op, [["render", cp]]);
+function hp(e) {
   const t = document.querySelector(e);
   if (!t) {
     console.error(`Element mit dem Selector "${e}" nicht gefunden.`);
     return;
   }
-  const n = Qs(cp);
+  const n = Qs(dp);
   n.use(gd()), n.mount(t);
 }
 export {
-  mp as default
+  hp as default
 };
