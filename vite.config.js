@@ -5,6 +5,9 @@ import {fileURLToPath} from "url";
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/widget_co2-rechner/', // GitHub Repository Name
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'), // Oder 'development'
+  },
   plugins: [
     vue(),
   ],
