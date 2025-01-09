@@ -92,26 +92,34 @@ export default {
     availableFuels() {
       switch (this.data.transportMode) {
         case "car":
-          return ["petrol", "diesel", "electric"];
-        case "bus":
-          return ["diesel"];
+          return ["petrol", "diesel", "electric", "lpg", "phev_diesel", "phev_otto"];
+        case "bus_public":
+          return ["diesel", "cng"];
         case "train":
-          return ["electric"];
-        case "plane":
-          return ["kerosene"];
+          return ["diesel", "electric"];
         default:
           return [];
       }
     },
     vehicleSizes() {
-      return ["small", "medium", "large"];
+      switch(this.data.fuelType) {
+        case "electric":
+          return ["small", "medium"];
+        case "lpg":
+          return ["medium"];
+        default:
+          return ["small", "medium", "large"];
+      }
     },
     icons() {
       return {
         petrol: "Fuel",
         diesel: "Fuel",
         electric: "Zap",
-        kerosene: "Droplet",
+        phev_diesel: "Zap",
+        phev_otto: "Zap",
+        lpg: "Droplet",
+        cng: "Droplet",
       };
     },
     sizeTranslations() {
@@ -126,7 +134,6 @@ export default {
     validateInput() {
       const form = this.$refs.form;
       const isValid = form.checkValidity();
-      console.error(form.checkValidity())
       this.$emit("update-validity", isValid);
     },
     selectFuelType(fuel) {

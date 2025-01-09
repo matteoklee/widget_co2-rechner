@@ -27,6 +27,7 @@ export const useCalculationStore = defineStore('calculationStore', {
     },
     actions: {
         async calculate() {
+            this.clearCalculationError();
             //check this.caluclationData !== null
             try {
                 const transportMediumDTO = {
@@ -50,6 +51,7 @@ export const useCalculationStore = defineStore('calculationStore', {
             }
         },
         async save(groupName, groupPhrase, groupSize) {
+            this.clearCalculationError();
             if(this.calculationResult === null) {
                 return;
             }
@@ -95,5 +97,8 @@ export const useCalculationStore = defineStore('calculationStore', {
         setCalculationSaveResult(result) {
             this.calculationSaveResult = result;
         },
+        clearCalculationError() {
+            this.error = null;
+        }
     },
 });

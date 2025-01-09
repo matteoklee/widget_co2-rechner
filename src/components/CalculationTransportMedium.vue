@@ -32,13 +32,13 @@
 <script>
 import Label from "@/components/ui/label/Label.vue";
 import Button from "@/components/ui/button/Button.vue";
-import {Car, Bus, Plane, Train} from "lucide-vue-next";
+import {Car, Bus, Plane, Train, Bike, Footprints} from "lucide-vue-next";
 import RadioGroup from "@/components/ui/radio-group/RadioGroup.vue";
 import RadioGroupItem from "@/components/ui/radio-group/RadioGroupItem.vue";
 
 export default {
   name: "CalculationTransportMedium",
-  components: {RadioGroupItem, RadioGroup, Button, Label, Car, Bus, Plane, Train},
+  components: {RadioGroupItem, RadioGroup, Button, Label, Car, Bus, Bike, Train, Footprints},
   props: {
     advancedCalculation: Boolean,
     calculationData: Object,
@@ -47,12 +47,14 @@ export default {
   data() {
     return {
       data: { ...this.calculationData },
-      transportModes: ["car", "bus", "train", "plane"],
+      transportModes: ["car", "bus_public", "bus_tour", "bike", "foot", "train"],
       icons: {
         car: "Car",
-        bus: "Bus",
+        bus_public: "Bus",
+        bus_tour: "Bus",
         train: "Train",
-        plane: "Plane",
+        bike: "Bike",
+        foot: "Footprints",
       },
     }
   },

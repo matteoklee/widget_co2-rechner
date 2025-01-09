@@ -31,6 +31,13 @@
               Bitte überprüfe deine Eingabedaten vor dem nächsten Schritt.
             </AlertDescription>
           </Alert>
+          <Alert variant="" class="px-4 py-2.5 mb-3" v-if="calculationStore.error !== null"> <!-- variant="destructive" -->
+            <AlertCircle class="w-4 h-4" />
+            <AlertTitle>Fehler</AlertTitle>
+            <AlertDescription>
+              {{ calculationStore.error }}
+            </AlertDescription>
+          </Alert>
         </div>
         <div class="w-full flex justify-between">
           <Button v-if="step > 1" type="button" @click="prevStep" variant="outline">
@@ -47,6 +54,7 @@
     </Card>
   </div>
   <div class="mt-6">
+    {{this.stepsValidity}}<br>
     {{this.advancedCalculation}}<br>
     {{this.calculationData}}
   </div>
@@ -106,7 +114,7 @@ export default {
       step: 1,
       maxStep: 4,
       advancedCalculation: true,
-      stepsValidity: [false, false, false, false],
+      stepsValidity: [],
 
       calculationData: {
         startLocation: "",
@@ -211,28 +219,60 @@ export default {
         case 4:
           return CalculationResult;
       }
-    }
+    },
+    isFuelAvailable() {
+      console.log("TransportMode:" + this.calculationData.transportMode)
+      switch (this.calculationData.transportMode) {
+        case "car":
+        case "bus_public":
+        case "train":
+          console.log("isFuelAvailable: true");
+          return true;
+        default:
+          console.log("isFuelAvailable: false");
+          return false;
+      }
+    },
   },
   methods: {
+    initializeStepsValidity() {
+      this.stepsValidity = Array(this.maxStep - 1).fill(false);
+    },
     updateStepValidity(index, valid) {
       this.stepsValidity[index] = valid;
     },
     isCurrentStepValid() {
-      console.log("CURRENT STEPS VALIDITY: " + this.stepsValidity)
+      console.log("CURRENT STEP: " + this.step + " FROM MAX STEPS: " + this.maxStep)
       return this.stepsValidity[this.step - 1];
     },
     areAllStepsValid() {
+      console.log("areAllStepsValid: " + this.stepsValidity.every(step => step === true))
       return this.stepsValidity.every(step => step === true);
     },
-    nextStep() {
-      if(this.isLastStep()) {
-        this.calculate();
+    async nextStep() {
+      if (!this.isCurrentStepValid()) {
+        console.warn("current step is not valid.");
+        return;
       }
-      if (this.isCurrentStepValid() && this.step < this.maxStep) {
+      if (this.isLastStepBeforeResult()) {
+        console.log("LAST STEP BEFORE RESULT");
+        await this.calculate();
+        await this.save();
         this.step++;
+        return;
       }
+      if (this.step === 2 && !this.isFuelAvailable) {
+        console.log("skipping Step 3 due to unavailable fuel");
+        this.stepsValidity[3-1] = true;
+        await this.calculate();
+        await this.save();
+        this.step += 2;
+        return;
+      }
+      this.step++;
     },
-    isLastStep() {
+
+    isLastStepBeforeResult() {
       return this.step === (this.maxStep - 1);
     },
     prevStep() {
@@ -251,10 +291,20 @@ export default {
       if(!this.areAllStepsValid()) {
         return;
       }
+      console.log("calculating emissions ...")
       this.calculationStore.setCalculationData(this.calculationData);
       await this.calculationStore.calculate();
-      this.calculationResult = this.calculationStore.getCalculationResult();
+      this.calculationResult = this.calculationStore.calculationResult;
+    },
+    async save() {
+      if(this.calculationResult === null) {
+        return;
+      }
+      await this.calculationStore.save("widgetGroup", "widget-001", 1);
     }
+  },
+  mounted() {
+    this.initializeStepsValidity();
   }
 }
 </script>
