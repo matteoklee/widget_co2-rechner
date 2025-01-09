@@ -4,6 +4,7 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     ? 'https://xrlab.hs-harz.de/co2back/api'
     : '/api';
 
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
     timeout: 5000
