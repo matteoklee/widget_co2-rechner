@@ -4,7 +4,7 @@
   </div>
 
   <div class="w-full bg-white">
-    <Card class="max-w-4xl m-1">
+    <Card class="m-2">
       <CardHeader>
         <div class="mt-2 mb-4">
           <Progress v-model="progress" class="w-full mx-auto"/>

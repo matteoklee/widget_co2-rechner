@@ -1,13 +1,15 @@
 import axios from 'axios';
 
+/*
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? 'https://xrlab.hs-harz.de/co2back/api'
     : '/api';
+*/
 
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 const axiosInstance = axios.create({
-    baseURL: BASE_URL,
-    timeout: 5000
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+    timeout: 10000
 });
 
 /*
