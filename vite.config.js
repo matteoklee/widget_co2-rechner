@@ -6,7 +6,8 @@ import {fileURLToPath} from "url";
 export default defineConfig({
   base: '/widget_co2-rechner/', // GitHub Repository Name
   define: {
-    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.NODE_ENV': JSON.stringify('dev'),
+    //'process.env.NODE_ENV': JSON.stringify('production'),
   },
   plugins: [
     vue(),
@@ -19,7 +20,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://xrlab.hs-harz.de/co2back',
+        target: 'http://localhost:8083/', //https://xrlab.hs-harz.de/co2back
         changeOrigin: true,
         secure: false,
         ws: true

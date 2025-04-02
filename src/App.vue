@@ -2,13 +2,7 @@
 </script>
 
 <template>
-  <div>
-    <p>Widget successful initialized.</p>
-  </div>
-  <div class="">
-    <router-view></router-view>
-  </div>
-
+  <router-view></router-view>
 </template>
 
 <style scoped>
