@@ -3,8 +3,8 @@
     <p>CalculationComponent</p>
   </div>
 
-  <div class="w-full bg-white">
-    <Card class="m-2">
+  <div class="w-full">
+    <Card class="m-2" :style="cardStyle">
       <CardHeader>
         <div class="mt-2 mb-4">
           <Progress v-model="progress" class="w-full mx-auto"/>
@@ -27,7 +27,7 @@
           <Alert variant="" class="px-4 py-2.5 mb-3" v-if="!isCurrentStepValid() && !(step === maxStep)"> <!-- variant="destructive" -->
             <AlertCircle class="w-4 h-4" />
             <AlertTitle>Unvollständig</AlertTitle>
-            <AlertDescription>
+            <AlertDescription :style="textStyle">
               Bitte überprüfe deine Eingabedaten vor dem nächsten Schritt.
             </AlertDescription>
           </Alert>
@@ -85,6 +85,7 @@ import Alert from "../ui/alert/Alert.vue";
 import AlertTitle from "../ui/alert/AlertTitle.vue";
 import AlertDescription from "../ui/alert/AlertDescription.vue";
 import {useCalculationStore} from "@/stores/calculationStore.js";
+import {useWidgetConfigStore} from "@/stores/widgetConfigStore.js";
 
 export default {
   name: "CalculationStepper",
@@ -105,8 +106,11 @@ export default {
     SelectContent, SelectTrigger, Select, CardContent, CardDescription, CardTitle, CardHeader, Card},
   setup() {
     const calculationStore = useCalculationStore();
+    const widgetConfigStore = useWidgetConfigStore();
+
     return {
-      calculationStore
+      calculationStore,
+      widgetConfigStore
     }
   },
   data() {
@@ -233,6 +237,35 @@ export default {
           return false;
       }
     },
+    backgroundStyle() {
+      return {
+        /*
+        backgroundColor: (this.widgetConfigStore.theme === "dark" ? "hsl(var(--background))"
+            : this.widgetConfigStore.testColor),*/
+        backgroundColor: this.widgetConfigStore.testColor,
+      }
+    },
+    textStyle() {
+      return {
+        color: this.widgetConfigStore.testColor,
+        fontSize: this.widgetConfigStore.fontSize,
+        fontFamily: this.widgetConfigStore.fontFamily,
+      }
+    },
+    cardStyle() {
+      if(this.widgetConfigStore.borderActive === true) {
+        console.log("borderActive: true");
+        return {
+          borderRadius: this.widgetConfigStore.radius,
+          borderColor: this.widgetConfigStore.borderColor,
+        }
+      } else {
+        console.log("borderActive: false");
+        return {
+          borderStyle: "none"
+        }
+      }
+    }
   },
   methods: {
     initializeStepsValidity() {

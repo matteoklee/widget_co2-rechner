@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import CalculationStepper from "@/components/calculation/CalculationStepper.vue";
 import NotFoundView from "@/components/misc/NotFoundView.vue";
 
+import {validateToken} from "@/services/tokenService.js";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -33,17 +35,23 @@ const router = createRouter({
     ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.meta.requiresAuth) {
         const token = to.query.token;
-        const tokenVaild = token;
-
-        if (!tokenVaild) {
-            next({ name: "error" });
+        if (!token) {
+            console.error("no token");
+            next({name: "error"});
             return;
-        } else {
-            next();
         }
+
+        const isValid = await validateToken(token);
+        const production = false;
+        if (!isValid && production) {
+            console.error("invalid token");
+            next({name: "error"});
+            return;
+        }
+        next();
     } else {
         next();
     }
