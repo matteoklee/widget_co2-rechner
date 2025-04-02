@@ -43,10 +43,10 @@
           <Button v-if="step > 1" type="button" @click="prevStep" variant="outline">
             <ArrowLeft class="mr-2 h-4 w-4" /> Zurück
           </Button>
-          <Button v-if="(step < maxStep) && !(step === maxStep-1)" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+          <Button v-if="(step < maxStep) && !(step === maxStep-1)" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'" variant="">
             Weiter <ArrowRight class="ml-2 h-4 w-4" />
           </Button>
-          <Button v-if="step === maxStep-1" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'">
+          <Button v-if="step === maxStep-1" :disabled="!isCurrentStepValid()" type="button" @click="nextStep" :class="(step === 1) ? 'w-full' : 'ml-auto'" variant="">
             Berechnen <ArrowRight class="ml-2 h-4 w-4" />
           </Button>
         </div>
@@ -257,7 +257,7 @@ export default {
         console.log("borderActive: true");
         return {
           borderRadius: this.widgetConfigStore.radius,
-          borderColor: this.widgetConfigStore.borderColor,
+          borderColor: this.widgetConfigStore.border,
         }
       } else {
         console.log("borderActive: false");

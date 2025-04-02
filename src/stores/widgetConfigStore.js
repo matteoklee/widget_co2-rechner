@@ -57,7 +57,12 @@ export const useWidgetConfigStore = defineStore("widgetConfigStore", {
             if (config.cardForeground) this.cardForeground = config.cardForeground;
             if (config.border) this.border = config.border;
             if (config.input) this.input = config.input;
-            if (config.primary) this.primary = config.primary;
+            if (config.primary) {
+                this.primary = config.primary;
+                document.documentElement.style.setProperty("--primary", "357 100% 50%");
+                document.documentElement.style.setProperty("--primary-foreground", "195, 57%, 97%");
+
+            }
             if (config.primaryForeground) this.primaryForeground = config.primaryForeground;
             if (config.secondary) this.secondary = config.secondary;
             if (config.secondaryForeground) this.secondaryForeground = config.secondaryForeground;
@@ -66,7 +71,7 @@ export const useWidgetConfigStore = defineStore("widgetConfigStore", {
             if (config.destructive) this.destructive = config.destructive;
             if (config.destructiveForeground) this.destructiveForeground = config.destructiveForeground;
             if (config.ring) this.ring = config.ring;
-            if (config.radius) this.radius = config.radius; // Beispiel: 0.5rem
+            if (config.radius) this.radius = config.radius;
 
             //
             if (config.fontFamily) this.fontFamily = config.fontFamily;
