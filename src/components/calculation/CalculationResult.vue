@@ -78,9 +78,9 @@
 </template>
 
 <script>
-import Card from "@/components/ui/card/Card.vue";
-import CardContent from "@/components/ui/card/CardContent.vue";
-import Button from "@/components/ui/button/Button.vue";
+import Card from "../ui/card/Card.vue";
+import CardContent from "../ui/card/CardContent.vue";
+import Button from "../ui/button/Button.vue";
 
 import {Leaf, Trees, Car, Train, Bus, Bike} from "lucide-vue-next";
 import NumberTicker from "@/components/ui/number-ticker/NumberTicker.vue";

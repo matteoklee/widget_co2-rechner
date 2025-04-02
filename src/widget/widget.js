@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import CalculationStepper from "@/components/CalculationStepper.vue";
+import CalculationStepper from "@/components/calculation/CalculationStepper.vue";
 import "@/assets/index.css";
 import {createPinia} from "pinia";
 

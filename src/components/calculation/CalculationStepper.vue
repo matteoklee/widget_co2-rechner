@@ -61,29 +61,29 @@
 </template>
 
 <script>
-import Card from "@/components/ui/card/Card.vue";
-import CardHeader from "@/components/ui/card/CardHeader.vue";
-import CardTitle from "@/components/ui/card/CardTitle.vue";
-import CardDescription from "@/components/ui/card/CardDescription.vue";
-import CardContent from "@/components/ui/card/CardContent.vue";
-import Select from "@/components/ui/select/Select.vue";
-import SelectTrigger from "@/components/ui/select/SelectTrigger.vue";
-import SelectContent from "@/components/ui/select/SelectContent.vue";
-import SelectItem from "@/components/ui/select/SelectItem.vue";
-import CardFooter from "@/components/ui/card/CardFooter.vue";
-import Button from "@/components/ui/button/Button.vue";
-import Label from "@/components/ui/label/Label.vue";
-import Input from "@/components/ui/input/Input.vue";
-import Progress from "@/components/ui/progress/Progress.vue";
-import Switch from "@/components/ui/switch/Switch.vue";
+import Card from "../ui/card/Card.vue";
+import CardHeader from "../ui/card/CardHeader.vue";
+import CardTitle from "../ui/card/CardTitle.vue";
+import CardDescription from "../ui/card/CardDescription.vue";
+import CardContent from "../ui/card/CardContent.vue";
+import Select from "../ui/select/Select.vue";
+import SelectTrigger from "../ui/select/SelectTrigger.vue";
+import SelectContent from "../ui/select/SelectContent.vue";
+import SelectItem from "../ui/select/SelectItem.vue";
+import CardFooter from "../ui/card/CardFooter.vue";
+import Button from "../ui/button/Button.vue";
+import Label from "../ui/label/Label.vue";
+import Input from "../ui/input/Input.vue";
+import Progress from "../ui/progress/Progress.vue";
+import Switch from "../ui/switch/Switch.vue";
 import {ArrowLeft, ArrowRight, AlertCircle} from "lucide-vue-next";
-import CalculationRoute from "@/components/CalculationRoute.vue";
-import CalculationTransportMedium from "@/components/CalculationTransportMedium.vue";
-import CalculationFuel from "@/components/CalculationFuel.vue";
-import CalculationResult from "@/components/CalculationResult.vue";
-import Alert from "@/components/ui/alert/Alert.vue";
-import AlertTitle from "@/components/ui/alert/AlertTitle.vue";
-import AlertDescription from "@/components/ui/alert/AlertDescription.vue";
+import CalculationRoute from "@/components/calculation/CalculationRoute.vue";
+import CalculationTransportMedium from "@/components/calculation/CalculationTransportMedium.vue";
+import CalculationFuel from "@/components/calculation/CalculationFuel.vue";
+import CalculationResult from "@/components/calculation/CalculationResult.vue";
+import Alert from "../ui/alert/Alert.vue";
+import AlertTitle from "../ui/alert/AlertTitle.vue";
+import AlertDescription from "../ui/alert/AlertDescription.vue";
 import {useCalculationStore} from "@/stores/calculationStore.js";
 
 export default {

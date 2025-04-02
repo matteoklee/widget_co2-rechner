@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import CalculationStepper from "@/components/CalculationStepper.vue";
+import CalculationStepper from "@/components/calculation/CalculationStepper.vue";
+import NotFoundView from "@/components/misc/NotFoundView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,8 +8,19 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: CalculationStepper
+            component: CalculationStepper,
+            meta: { requiresAuth: true }
         },
+        {
+            path: '/error',
+            name: 'error',
+            component: () => import('@/components/misc/ErrorView.vue'),
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'notFound',
+            component: NotFoundView
+        }
         /*
         {
             path: '/dashboard',
@@ -17,14 +29,41 @@ const router = createRouter({
             component: DashboardView,
             meta: { requiresAuth: true }
         },
-        {
-            path: '/:pathMatch(.*)*',
-            name: 'notFound',
-            //component: NotFound
-        }
         */
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+        const token = to.query.token;
+        const tokenVaild = token;
+
+        if (!tokenVaild) {
+            next({ name: "error" });
+            return;
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
+/*
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+        const referer = document.referrer;
+        const allowedDomains = ["https://customer1.com", "https://customer2.com", "http://localhost:5173"];
+
+        if (!referer || !allowedDomains.some(domain => referer.startsWith(domain))) {
+            next({ name: "error" });
+            return;
+        }
+    } else {
+        next();
+    }
+});
+*/
 
 /*
 router.beforeEach((to, from, next) => {

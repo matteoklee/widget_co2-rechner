@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import Label from "@/components/ui/label/Label.vue";
-import Button from "@/components/ui/button/Button.vue";
+import Label from "../ui/label/Label.vue";
+import Button from "../ui/button/Button.vue";
 import {Fuel, Droplet, Zap, Car} from "lucide-vue-next";
-import RadioGroup from "@/components/ui/radio-group/RadioGroup.vue";
-import RadioGroupItem from "@/components/ui/radio-group/RadioGroupItem.vue";
+import RadioGroup from "../ui/radio-group/RadioGroup.vue";
+import RadioGroupItem from "../ui/radio-group/RadioGroupItem.vue";
 
 export default {
   name: "CalculationFuel",

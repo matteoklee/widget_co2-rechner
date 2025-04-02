@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import Label from "@/components/ui/label/Label.vue";
-import Input from "@/components/ui/input/Input.vue";
-import Switch from "@/components/ui/switch/Switch.vue";
+import Label from "../ui/label/Label.vue";
+import Input from "../ui/input/Input.vue";
+import Switch from "../ui/switch/Switch.vue";
 
 export default {
   name: "CalculationRoute",
