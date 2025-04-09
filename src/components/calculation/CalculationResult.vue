@@ -24,11 +24,11 @@
             <h3 class="text-2xl font-semibold">Baum-Äquivalent</h3>
           </div>
           <p class="text-3xl font-bold text-green-700 mb-4">
-            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :value="result.yearsToBind['years'] " />
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :value="result.yearsToBind ? result.yearsToBind['years'] : '' " />
             <span class="text-2xl ml-2">Jahr(e), </span>
-            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="500" :value="result.yearsToBind['months'] " />
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="500" :value="result.yearsToBind ? result.yearsToBind['years'] : ''" />
             <span class="text-2xl ml-2">Monat(e), </span>
-            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="1000" :value="result.yearsToBind['days'] " />
+            <NumberTicker class="text-green-700" :decimal-places="0" :duration="1000" :delay="1000" :value="result.yearsToBind ? result.yearsToBind['years'] : ''" />
             <span class="text-2xl ml-2">Tag(e)</span>
           </p>
           <p class="text-lg">

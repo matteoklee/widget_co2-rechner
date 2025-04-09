@@ -1,19 +1,21 @@
 <script>
-import {Leaf, MapPin, ArrowRight, Navigation, Info, ArrowLeft, Settings, ChartNoAxesColumn} from "lucide-vue-next";
+import {Leaf, MapPin, ArrowRight, Navigation, Info, ArrowLeft, Settings, ChartNoAxesColumn, Fuel, Car} from "lucide-vue-next";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card/index.js";
 import {Progress} from "@/components/ui/progress/index.js";
 import {Input} from "@/components/ui/input/index.js";
 import {Button} from "@/components/ui/button/index.js";
 import AppCalculationRoute from "@/components/new-calculation/AppCalculationRoute.vue";
 import AppCalculationTransport from "@/components/new-calculation/AppCalculationTransport.vue";
-import AppCalculationTransportDetails from "@/components/new-calculation/AppCalculationTransportDetails.vue";
+import AppCalculationTransportFuel from "@/components/new-calculation/AppCalculationTransportFuel.vue";
 import AppCalculationResult from "@/components/new-calculation/AppCalculationResult.vue";
+import {markRaw} from "vue";
+import AppCalculationTransportSize from "@/components/new-calculation/AppCalculationTransportSize.vue";
 
 export default {
   name: "AppCalculator",
   components: {
     Button,
-    Input, Progress, CardFooter, CardContent, CardDescription, CardTitle, CardHeader, Card, Leaf, MapPin, ArrowRight, Navigation, Info, ArrowLeft, Settings, ChartNoAxesColumn },
+    Input, Progress, CardFooter, CardContent, CardDescription, CardTitle, CardHeader, Card, Leaf, MapPin, ArrowRight, Navigation, Info, ArrowLeft, Settings, ChartNoAxesColumn, Fuel, Car },
   data() {
     return {
       //progress: 25,
@@ -30,9 +32,14 @@ export default {
           icon: Navigation
         },
         {
-          title: "Details",
+          title: "Kraftstoff",
           description: "Transportdetails angeben",
-          icon: Settings
+          icon: Fuel
+        },
+        {
+          title: "Fahrzeuggröße",
+          description: "Transportdetails angeben",
+          icon: Car
         },
         {
           title: "Ergebnis",
@@ -42,16 +49,19 @@ export default {
       ],
       stepContent: [
         {
-          component: AppCalculationRoute
+          component: markRaw(AppCalculationRoute)
         },
         {
-          component: AppCalculationTransport
+          component: markRaw(AppCalculationTransport)
         },
         {
-          component: AppCalculationTransportDetails
+          component: markRaw(AppCalculationTransportFuel)
         },
         {
-          component: AppCalculationResult
+          component: markRaw(AppCalculationTransportSize)
+        },
+        {
+          component: markRaw(AppCalculationResult)
         }
       ]
     }
@@ -87,7 +97,7 @@ export default {
               <div>
                 <CardTitle class="text-2xl">CO2-Rechner für Ihre Anreise</CardTitle>
                 <CardDescription class="text-green-600/70">
-                  Berechnen Sie die Umweltauswirkungen Ihrer Reise und entdecken Sie umweltfreundlichere Alternativen
+                  Berechnen Sie den CO2-Ausstoß Ihrer Reise und entdecken Sie umweltfreundlichere Alternativen
                 </CardDescription>
               </div>
             </div>
@@ -138,9 +148,9 @@ export default {
           </Button>
           <div v-else></div>
 
-          <Button v-if="currentStep < 3" @click="nextStep" class="inline-flex items-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600">
+          <Button v-if="currentStep < 4" @click="nextStep" class="inline-flex items-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600">
             <ArrowRight class="h-4 w-4 mr-2" />
-            <span v-if="currentStep === 2">Berechnen</span>
+            <span v-if="currentStep === 3">Berechnen</span>
             <span v-else>Weiter</span>
           </Button>
           <Button v-else @click="this.currentStep = 0" variant="outline" class="inline-flex items-center border-green-200 hover:bg-green-50 hover:text-green-700">

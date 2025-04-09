@@ -48,8 +48,8 @@ export default {
         </div>
 
         <div class="flex flex-col items-center text-center space-y-4">
-          <div class="p-4 rounded-full" :class="isSelected ? 'bg-green-100' : 'bg-muted/50'">
-            <component :is="option.icon" class="h-8 w-8" :class="isSelected ? 'text-green-600' : 'text-muted-foreground'" />
+          <div class="p-4 rounded-full" :class="isSelected(option) ? 'bg-green-100' : 'bg-muted/50'">
+            <component :is="option.icon" class="h-8 w-8" :class="isSelected(option) ? 'text-green-600' : 'text-muted-foreground'" />
           </div>
           <div>
             <h4 class="font-medium text-lg">{{ option.name }}</h4>
