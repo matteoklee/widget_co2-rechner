@@ -7,7 +7,6 @@ export default {
   components: {Label, Zap, Fuel, Cable, Check, Ruler, CarFront, Car, Truck, Info },
   data() {
     return {
-      transportFuel: null,
       transportSize: null,
       //TODO: fetching fuelOptions and sizeTypes according to transport medium
       fuelOptions: [
@@ -38,7 +37,7 @@ export default {
   <div class="space-y-8">
     <div class="text-center mb-6">
       <h3 class="text-xl font-medium mb-2">
-        Details zu Ihrer Fahrzeuggröße
+        Details zur Fahrzeuggröße
       </h3>
       <p class="text-muted-foreground">
         Wählen Sie die Fahrzeuggröße Ihres ausgewählten Transportmittels.

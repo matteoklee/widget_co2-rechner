@@ -1,9 +1,9 @@
 <script>
-import {Bike, Car, Train, Bus, Footprints, Check} from "lucide-vue-next";
+import {Bike, Car, Train, Bus, Footprints, Check, Info} from "lucide-vue-next";
 
 export default {
   name: "AppCalculationTransport",
-  components: { Bike, Car, Train, Bus, Footprints, Check },
+  components: {Info, Bike, Car, Train, Bus, Footprints, Check },
   data() {
     return {
       transportMode: '',
@@ -55,6 +55,15 @@ export default {
             <h4 class="font-medium text-lg">{{ option.name }}</h4>
             <p class="text-sm text-muted-foreground mt-1">{{ option.description }}</p>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <div class="text-sm text-muted-foreground mt-2 bg-muted/30 p-3 rounded-lg">
+        <div class="inline-flex items-center">
+          <Info class="h-4 w-4 mr-2" />
+          <span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.</span>
         </div>
       </div>
     </div>
