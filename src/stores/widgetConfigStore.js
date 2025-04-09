@@ -59,9 +59,8 @@ export const useWidgetConfigStore = defineStore("widgetConfigStore", {
             if (config.input) this.input = config.input;
             if (config.primary) {
                 this.primary = config.primary;
-                document.documentElement.style.setProperty("--primary", "357 100% 50%");
-                document.documentElement.style.setProperty("--primary-foreground", "195, 57%, 97%");
-
+                //document.documentElement.style.setProperty("--primary", "357 100% 50%");
+                //document.documentElement.style.setProperty("--primary-foreground", "195, 57%, 97%");
             }
             if (config.primaryForeground) this.primaryForeground = config.primaryForeground;
             if (config.secondary) this.secondary = config.secondary;

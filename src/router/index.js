@@ -3,6 +3,7 @@ import CalculationStepper from "@/components/calculation/CalculationStepper.vue"
 import NotFoundView from "@/components/misc/NotFoundView.vue";
 
 import {validateToken} from "@/services/tokenService.js";
+import AppCalculator from "@/components/new-calculation/AppCalculator.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +11,8 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: CalculationStepper,
+            //component: CalculationStepper,
+            component: AppCalculator,
             meta: { requiresAuth: true }
         },
         {
